@@ -4,9 +4,9 @@ import { PostService } from "../services/post.service"; // import service
 
 export class PostController {
   public router: Router;
-  private postService: PostService; 
+  private postService: PostService;
 
-  constructor(){
+  constructor() {
     this.postService = new PostService(); // Create a new instance of PostController
     this.router = Router();
     this.routes();
@@ -15,7 +15,7 @@ export class PostController {
   public index = async (req: Request, res: Response) => {
     const posts = await this.postService.index();
     res.send(posts).json();
-  } 
+  }
 
   public create = async (req: Request, res: Response) => {
     const post = req['body'] as PostEntity;
@@ -25,20 +25,20 @@ export class PostController {
 
   public update = async (req: Request, res: Response) => {
     const post = req['body'] as PostEntity;
-    const id =  req['params']['id'];
-    
+    const id = req['params']['id'];
+
     res.send(this.postService.update(post, Number(id)));
   }
 
   public delete = async (req: Request, res: Response) => {
-    const id =  req['params']['id'];
+    const id = req['params']['id'];
     res.send(this.postService.delete(Number(id)));
-  } 
+  }
 
   /**
    * Configure the routes of controller
    */
-  public routes(){
+  public routes() {
     this.router.get('/', this.index);
     this.router.post('/', this.create);
     this.router.put('/:id', this.update);

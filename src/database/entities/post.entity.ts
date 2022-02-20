@@ -7,7 +7,7 @@ export class PostEntity {
 
   @Column()
   title: string;
-  
+
   @Column()
   content: string;
 }

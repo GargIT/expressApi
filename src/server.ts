@@ -1,4 +1,4 @@
-import express, {Request, Response} from 'express';
+import express, { Request, Response } from 'express';
 import { PostController } from './controller/post.controller'; // import the post controller
 import { createConnection } from "typeorm";
 
@@ -6,7 +6,7 @@ class Server {
   private postController: PostController;
   private app: express.Application;
 
-  constructor(){
+  constructor() {
     this.app = express(); // init the application
     this.configuration();
     this.routes();
@@ -25,7 +25,7 @@ class Server {
   /**
    * Method to configure the routes
    */
-  public async routes(){
+  public async routes() {
     await createConnection({
       type: "postgres",
       host: "localhost",
@@ -40,17 +40,17 @@ class Server {
 
     this.postController = new PostController();
 
-    this.app.get( "/", (req: Request, res: Response ) => {
-      res.send( "Hello world!" );
+    this.app.get("/", (req: Request, res: Response) => {
+      res.send("Hello world!");
     });
 
-    this.app.use(`/api/posts/`,this.postController.router); // Configure the new routes of the controller post
+    this.app.use(`/api/posts/`, this.postController.router); // Configure the new routes of the controller post
   }
 
   /**
    * Used to start the server
    */
-  public start(){
+  public start() {
     this.app.listen(this.app.get('port'), () => {
       console.log(`Server is listening ${this.app.get('port')} port.`);
     });
